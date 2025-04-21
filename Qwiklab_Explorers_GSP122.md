@@ -10,11 +10,11 @@
  - ### Copy & Run the Commands in Cloud Shell Terminal :
 
 ```
-curl -LO raw.githubusercontent.com/Titash-shil/Build-Infrastructure-with-Terraform-on-Google-Cloud-Challenge-Lab-GSP345/refs/heads/main/qwiklab_explorers_gsp345.sh
+curl -LO raw.githubusercontent.com/Titash-shil/Google-Cloud-SDK-Qwik-Start---Redhat-Centos-GSP122/refs/heads/main/qwiklab_explorers_gsp122.sh
 
-sudo chmod +x qwiklab_explorers_gsp345.sh
+sudo chmod +x qwiklab_explorers_gsp122.sh
 
-./qwiklab_explorers_gsp345.sh
+./qwiklab_explorers_gsp122.sh
 ```
 
 ---
