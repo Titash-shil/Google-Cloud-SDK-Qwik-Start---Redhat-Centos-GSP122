@@ -13,16 +13,27 @@ UNDERLINE_TEXT=$'\033[4m'
 clear
 
 
-
-read -p "${YELLOW_TEXT}${BOLD_TEXT}Enter Your Lab Zone: ${RESET_FORMAT}" ZONE
+read -p "${MAGENTA}${BOLD_TEXT}Enter the Zone: ${RESET_FORMAT}" ZONE
 export ZONE
 
+echo
+echo "${GREEN}${BOLD_TEXT}Creating a VM instance named 'lol' in the specified zone...${RESET_FORMAT}"
+echo "${BLUE}${BOLD_TEXT}This may take a few moments. Please wait.${RESET_FORMAT}"
+echo
 
 gcloud compute instances create lol --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --machine-type=e2-medium --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default --metadata=enable-oslogin=true --maintenance-policy=MIGRATE --provisioning-model=STANDARD --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server --create-disk=auto-delete=yes,boot=yes,device-name=lol,image=projects/centos-cloud/global/images/centos-7-v20231010,mode=rw,size=20,type=projects/$DEVSHELL_PROJECT_ID/zones/$ZONE/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --labels=goog-ec-src=vm_add-gcloud --reservation-affinity=any
 
+echo
+echo "${GREEN_TEXT}${BOLD_TEXT}Waiting for the VM instance to be ready...${RESET_FORMAT}"
+echo "${YELLOW_TEXT}${BOLD_TEXT}This will take approximately 30 seconds.${RESET_FORMAT}"
+echo
 
 sleep 30
 
+echo
+echo "${BLUE_TEXT}${BOLD_TEXT}Connecting to the VM instance via SSH to configure Google Cloud SDK...${RESET_FORMAT}"
+echo "${GREEN_TEXT}${BOLD_TEXT}Please wait while the necessary packages are installed.${RESET_FORMAT}"
+echo
 
 gcloud compute ssh lol --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="\
 sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
